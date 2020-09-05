@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-const port = 2019;
+const port = 5000;
 const cors = require("cors");
-const db = require("../database/indexDB")
+const db;
 const path = require('path')
 
 //requirements
@@ -25,7 +25,9 @@ app.get("/api/products/:id", (req, res) => {
   })
 });
 
+
+
 // listening
 app.listen(port, () => {
-  console.log(`productInfo-photos_service listening at ${port}`);
+  console.log(`minesweeper listening at ${port}`);
 });

@@ -78,9 +78,9 @@ export default function App() {
     <div>
       <h1>Minesweeper</h1>
       <Board board={board} />
-      <button className="newGame" onClick={startNewGame}>
-        New Game
-      </button>
+      <div className="newGame">
+        <button onClick={startNewGame}>New Game</button>
+      </div>
     </div>
   );
 }

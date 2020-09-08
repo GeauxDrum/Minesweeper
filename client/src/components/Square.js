@@ -4,7 +4,7 @@ export default function Square(props) {
   const clickSquare = (e) => {
     e.preventDefault();
     console.log("square clicked", props.row, props.col);
-    // if (props.newBoard)
+    console.log(props.board[props.row][props.col]);
   };
   return <td className="square" onClick={clickSquare}></td>;
 }

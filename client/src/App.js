@@ -69,15 +69,21 @@ export default function App() {
   console.log(newBoard);
   const [board, setBoard] = useState(newBoard);
 
+  const [wipeBoard, setWipeBoard] = useState(false);
+  const clearBoard = () => {
+    setWipeBoard(!wipeBoard);
+  };
+
   const startNewGame = (e) => {
     e.preventDefault();
+    clearBoard();
     setBoard(makeNewBoard());
   };
 
   return (
     <div>
       <h1>Minesweeper</h1>
-      <Board board={board} />
+      <Board board={board} clearBoard={clearBoard} />
       <div className="newGame">
         <button onClick={startNewGame}>New Game</button>
       </div>

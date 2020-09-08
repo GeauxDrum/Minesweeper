@@ -9,7 +9,13 @@ export default function Board(props) {
           {props.board.map((row, i) => (
             <tr key={i}>
               {row.map((col, j) => (
-                <Square key={j} board={props.board} row={i} col={j} />
+                <Square
+                  key={j}
+                  board={props.board}
+                  row={i}
+                  col={j}
+                  clearBoard={props.clearBoard}
+                />
               ))}
             </tr>
           ))}

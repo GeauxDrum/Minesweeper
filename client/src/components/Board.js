@@ -14,7 +14,9 @@ export default function Board(props) {
                   board={props.board}
                   row={i}
                   col={j}
+                  lossCondition={props.lossCondition}
                   clearBoard={props.clearBoard}
+                  loss={props.loss}
                 />
               ))}
             </tr>

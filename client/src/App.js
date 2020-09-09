@@ -61,29 +61,45 @@ const makeNewBoard = () => {
     }
   }
 
+  console.log(newBoard);
   return newBoard;
 };
 
 export default function App() {
   const newBoard = makeNewBoard();
-  console.log(newBoard);
   const [board, setBoard] = useState(newBoard);
-
   const [wipeBoard, setWipeBoard] = useState(false);
+  const [loss, setLoss] = useState(false);
+  const [banner, setBanner] = useState("Good Luck!");
+
   const clearBoard = () => {
     setWipeBoard(!wipeBoard);
+  };
+
+  const lossCondition = () => {
+    console.log("GAME OVER");
+    setLoss(true);
+    setBanner("GAME OVER");
   };
 
   const startNewGame = (e) => {
     e.preventDefault();
     clearBoard();
+    setLoss(false);
     setBoard(makeNewBoard());
+    setBanner("Good Luck!");
   };
 
   return (
     <div>
       <h1>Minesweeper</h1>
-      <Board board={board} clearBoard={clearBoard} />
+      <h2 id="banner">{banner}</h2>
+      <Board
+        board={board}
+        clearBoard={clearBoard}
+        loss={loss}
+        lossCondition={lossCondition}
+      />
       <div className="newGame">
         <button onClick={startNewGame}>New Game</button>
       </div>

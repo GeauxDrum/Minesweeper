@@ -4,13 +4,31 @@ export default function Square(props) {
   const [text, setText] = useState("");
   const [background, setBackground] = useState("gray");
 
+  let reveal = props.board[props.row][props.col];
+
   useEffect(() => {
     setBackground("gray");
     setText("");
   }, [props.clearBoard]);
 
+  useEffect(() => {
+    if (props.loss) {
+      if (reveal === 0) {
+        setBackground("lightgray");
+        setText(reveal);
+      }
+      if (reveal > 0 && reveal < 9) {
+        setBackground("lightgray");
+        setText(reveal);
+      }
+      if (reveal === 9) {
+        setText("X");
+        setBackground("red");
+      }
+    }
+  }, [props.lossCondition]);
+
   const clickSquare = (e) => {
-    let reveal = props.board[props.row][props.col];
     e.preventDefault();
 
     if (reveal === 0) {
@@ -22,17 +40,10 @@ export default function Square(props) {
       setText(reveal);
     }
     if (reveal === 9) {
-      for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < 10; j++) {
-          if (props.board[i][j] === 9) {
-            console.log(props.board[i][j]);
-            // props.board[i][i].setBackground("red");
-            setText("X");
-          }
-        }
-      }
+      props.lossCondition();
     }
   };
+
   return (
     <td
       className="square"

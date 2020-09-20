@@ -28,16 +28,51 @@ export default function Square(props) {
     }
   }, [props.lossCondition]);
 
+  useEffect(() => {
+    if (props.win) {
+      if (reveal === 0) {
+        setBackground("lightgray");
+        setText(reveal);
+      }
+      if (reveal > 0 && reveal < 9) {
+        setBackground("lightgray");
+        setText(reveal);
+      }
+      if (reveal === 9) {
+        setText("X");
+        setBackground("green");
+      }
+    }
+  }, [props.winCondition]);
+
+  const rightClick = (e) => {
+    e.preventDefault();
+    if (text === "") {
+      console.log("right clicked!");
+      if (background === "gray") {
+        setBackground("green");
+      } else {
+        setBackground("gray");
+      }
+    }
+  };
+
   const clickSquare = (e) => {
     e.preventDefault();
 
     if (reveal === 0) {
       setBackground("lightgray");
       setText(reveal);
+      if (text === "") {
+        props.incrementCount();
+      }
     }
     if (reveal > 0 && reveal < 9) {
       setBackground("lightgray");
       setText(reveal);
+      if (text === "") {
+        props.incrementCount();
+      }
     }
     if (reveal === 9) {
       props.lossCondition();
@@ -48,6 +83,7 @@ export default function Square(props) {
     <td
       className="square"
       onClick={clickSquare}
+      onContextMenu={rightClick}
       style={{ background: background }}
     >
       {text}

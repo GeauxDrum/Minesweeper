@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Board from "./components/Board";
 
 const makeNewBoard = () => {
@@ -70,12 +70,18 @@ export default function App() {
   const [board, setBoard] = useState(newBoard);
   const [wipeBoard, setWipeBoard] = useState(false);
   const [loss, setLoss] = useState(false);
+  const [win, setWin] = useState(false);
   const [banner, setBanner] = useState("Good Luck!");
 
   const clearBoard = () => {
     setWipeBoard(!wipeBoard);
   };
 
+  const winCondition = () => {
+    console.log("YOU WIN!");
+    setWin(true);
+    setBanner("YOU WIN!!!");
+  };
   const lossCondition = () => {
     console.log("GAME OVER");
     setLoss(true);
@@ -86,8 +92,18 @@ export default function App() {
     e.preventDefault();
     clearBoard();
     setLoss(false);
+    setWin(false);
     setBoard(makeNewBoard());
     setBanner("Good Luck!");
+  };
+
+  var clickCount = 0;
+  const incrementCount = () => {
+    if (clickCount === 89) {
+      winCondition();
+    }
+    clickCount = clickCount + 1;
+    console.log("count is: ", clickCount);
   };
 
   return (
@@ -98,7 +114,10 @@ export default function App() {
         board={board}
         clearBoard={clearBoard}
         loss={loss}
+        win={win}
         lossCondition={lossCondition}
+        winCondition={winCondition}
+        incrementCount={incrementCount}
       />
       <div className="newGame">
         <button onClick={startNewGame}>New Game</button>

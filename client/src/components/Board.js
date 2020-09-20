@@ -17,6 +17,9 @@ export default function Board(props) {
                   lossCondition={props.lossCondition}
                   clearBoard={props.clearBoard}
                   loss={props.loss}
+                  win={props.win}
+                  incrementCount={props.incrementCount}
+                  winCondition={props.winCondition}
                 />
               ))}
             </tr>

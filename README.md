@@ -2,7 +2,7 @@
 
 link: <https://github.io/Minesweeper>
 
-My take on this classic game using react with hooks to make the matrices and update state determining win/loss conditions
+My take on this classic game using react with hooks to make the matrices and stateful components to reveal squares and determine win/loss conditions
 
 ## Technology:
 ##### Front End

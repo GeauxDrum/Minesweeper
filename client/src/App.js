@@ -19,6 +19,7 @@ const makeNewBoard = () => {
     }
   }
 
+  // populate the board with adjacent mine totals
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       let total = 0;
@@ -73,10 +74,10 @@ export default function App() {
   const [win, setWin] = useState(false);
   const [banner, setBanner] = useState("Good Luck!");
 
+  // game over functions
   const clearBoard = () => {
     setWipeBoard(!wipeBoard);
   };
-
   const winCondition = () => {
     console.log("YOU WIN!");
     setWin(true);
@@ -87,7 +88,6 @@ export default function App() {
     setLoss(true);
     setBanner("GAME OVER");
   };
-
   const startNewGame = (e) => {
     e.preventDefault();
     clearBoard();
@@ -97,6 +97,7 @@ export default function App() {
     setBanner("Good Luck!");
   };
 
+  // counter for win condition
   var clickCount = 0;
   const incrementCount = () => {
     if (clickCount === 89) {
@@ -106,9 +107,28 @@ export default function App() {
     console.log("count is: ", clickCount);
   };
 
+  // cascading all zeros for easier gameplay
+
+  const cascade = (row, col) => {
+    for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+      for (let colOffset = -1; colOffset <= 1; colOffset++) {
+        if (rowOffset === 0 && colOffset === 0) {
+          continue;
+        }
+        const neighbor = document.querySelector(
+          `[data-row="${row + rowOffset}"][data-col="${col + colOffset}"]`
+        );
+        if (neighbor) {
+          neighbor.click();
+        }
+      }
+    }
+  };
+
   return (
     <div>
       <h1>Minesweeper</h1>
+      <h1>10 mines on the board, right-click to mark them</h1>
       <h2 id="banner">{banner}</h2>
       <Board
         board={board}
@@ -118,6 +138,7 @@ export default function App() {
         lossCondition={lossCondition}
         winCondition={winCondition}
         incrementCount={incrementCount}
+        cascade={cascade}
       />
       <div className="newGame">
         <button onClick={startNewGame}>New Game</button>

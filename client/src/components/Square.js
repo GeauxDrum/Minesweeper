@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
 
-export default function Square(props) {
+export default function Square({
+  board,
+  row,
+  col,
+  clearBoard,
+  loss,
+  lossCondition,
+  win,
+  winCondition,
+  incrementCount,
+  cascade,
+}) {
   const [text, setText] = useState("");
   const [background, setBackground] = useState("gray");
 
-  let reveal = props.board[props.row][props.col];
+  let reveal = board[row][col];
 
   useEffect(() => {
     setBackground("gray");
     setText("");
-  }, [props.clearBoard]);
+  }, [clearBoard]);
 
+  // listener for loss condition to apply to each square
   useEffect(() => {
-    if (props.loss) {
+    if (loss) {
       if (reveal === 0) {
         setBackground("lightgray");
         setText(reveal);
@@ -26,10 +38,11 @@ export default function Square(props) {
         setBackground("red");
       }
     }
-  }, [props.lossCondition]);
+  }, [lossCondition]);
 
+  // listener for win conditon to apply to each square
   useEffect(() => {
-    if (props.win) {
+    if (win) {
       if (reveal === 0) {
         setBackground("lightgray");
         setText(reveal);
@@ -43,8 +56,9 @@ export default function Square(props) {
         setBackground("green");
       }
     }
-  }, [props.winCondition]);
+  }, [winCondition]);
 
+  // mark squares green
   const rightClick = (e) => {
     e.preventDefault();
     if (text === "") {
@@ -57,25 +71,30 @@ export default function Square(props) {
     }
   };
 
+  // reveal squares on left click
   const clickSquare = (e) => {
     e.preventDefault();
 
     if (reveal === 0) {
       setBackground("lightgray");
       setText(reveal);
+      // text will forever be empty because setState is async
       if (text === "") {
-        props.incrementCount();
+        incrementCount();
+        setTimeout(() => {
+          cascade(row, col);
+        }, 30);
       }
     }
     if (reveal > 0 && reveal < 9) {
       setBackground("lightgray");
       setText(reveal);
       if (text === "") {
-        props.incrementCount();
+        incrementCount();
       }
     }
     if (reveal === 9) {
-      props.lossCondition();
+      lossCondition();
     }
   };
 
@@ -85,6 +104,8 @@ export default function Square(props) {
       onClick={clickSquare}
       onContextMenu={rightClick}
       style={{ background: background }}
+      data-row={row}
+      data-col={col}
     >
       {text}
     </td>

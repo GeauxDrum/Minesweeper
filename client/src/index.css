@@ -29,6 +29,7 @@ table{
   height: 40px;
   text-align: center;
   border: 1px solid black;
+  transition: background-color .3s
 }
 
 .square:hover{

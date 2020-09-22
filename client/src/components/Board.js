@@ -20,6 +20,7 @@ export default function Board(props) {
                   win={props.win}
                   incrementCount={props.incrementCount}
                   winCondition={props.winCondition}
+                  cascade={props.cascade}
                 />
               ))}
             </tr>

@@ -7,7 +7,6 @@ My take on this classic game using react with hooks to make the matrices and sta
 ## Technology:
 ##### Front End
 * [React] w/ hooks
-* [Bootstrap]
 * [node.js]
 * [Express]
 * [WebPack]
